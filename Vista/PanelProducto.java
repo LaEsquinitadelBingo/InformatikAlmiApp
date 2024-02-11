@@ -132,6 +132,9 @@ public class PanelProducto extends JPanel {
 				case 1:
 					break;
 				case 2:
+					campos.add("<html><p style='text-align:left;'>\u2022 " + "RAM: " + datos.getString("ram")+ "</p></html>");
+					campos.add("<html><p style='text-align:left;'>\u2022 " + "Grafica: "+ datos.getString("grafica") + "</p></html>");
+					campos.add("<html><p style='text-align:left;'>\u2022 " + "Procesador: " + datos.getString("procesador") + " Hz</p></html>");
 					break;
 				case 3:
 					campos.add("<html><p style='text-align:left;'>\u2022 " + "Dimension de Pantalla: " + datos.getString("dimension")+ "</p></html>");
@@ -194,7 +197,7 @@ public class PanelProducto extends JPanel {
 					
 					break;
 				case 14:
-					campos.add("<html><p style='text-align:left;'>\u2022 " + "Dimensionl Disco Duro: " + datos.getInt("almacenamiento") + "</p></html>");
+					campos.add("<html><p style='text-align:left;'>\u2022 " + "Almacenamiento Disco Duro: " + datos.getInt("almacenamiento") + "</p></html>");
 					campos.add("<html><p style='text-align:left;'>\u2022 " + "Velocidad de Disco Duro: " + datos.getInt("velocidad") + "</p></html>");
 					campos.add("<html><p style='text-align:left;'>\u2022 " + "Peso:" + datos.getInt("peso") + " gramos</p></html>");
 					break;

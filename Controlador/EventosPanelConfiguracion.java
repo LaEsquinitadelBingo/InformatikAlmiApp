@@ -29,7 +29,7 @@ public class EventosPanelConfiguracion {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					if (panel.getCbProc().getSelectedIndex()>0) {
+					if (cb.getSelectedIndex()>0) {
 						panel.añadir(panel.getProductos().get(panel.getEstado() - 1).get(cb.getSelectedIndex() - 1));
 						panel.setEstado(panel.nuevoPaso(panel.getEstado()));
 					}
@@ -54,6 +54,7 @@ public class EventosPanelConfiguracion {
 					panel.setEstado(panel.nuevoPaso(panel.getEstado()));
 				}
 				panel.getLblPrecio().setText("");
+				panel.getBtnCarrito().setEnabled(false);
 			}
 		});
 		
@@ -102,6 +103,7 @@ public class EventosPanelConfiguracion {
 
 		            try {
 		                Scanner scanner = new Scanner(file);
+		                panel.getBtnCarrito().setEnabled(false);
 		                panel.setEstado(0);
 		                panel.setEstado(panel.nuevoPaso(panel.getEstado()));
 		                while (scanner.hasNextLine()) {
@@ -128,7 +130,7 @@ public class EventosPanelConfiguracion {
 					panel.getGestion().getCarro().add(p);
 					panel.getGestion().getCarro().get(panel.getGestion().getCarro().size() - 1).setEnCarro(1);
 				}
-				for(int i = 0;i<7;i++) {
+				for(int i = 0;i<8;i++) {
 					panel.getProductos().get(i).clear();
 					panel.getCombos().get(i).setEnabled(false);
 					panel.getCombos().get(i).removeAllItems();
@@ -156,7 +158,7 @@ public class EventosPanelConfiguracion {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				for(int i = 0;i<7;i++) {
+				for(int i = 0;i<8;i++) {
 					panel.getProductos().get(i).clear();
 					panel.getCombos().get(i).setEnabled(false);
 					panel.getCombos().get(i).removeAllItems();

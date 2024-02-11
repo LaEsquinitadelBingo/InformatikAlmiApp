@@ -313,8 +313,8 @@ public class GestionComponentes extends JFrame {
 		
 		items = new ArrayList<>();
 		items.add("Novedades");
-		items.add("Portatiles");
 		items.add("Packs Pc");
+		items.add("Portatiles");
         items.add("Monitores");
         items.add("CPU");
         items.add("Placa Base");
@@ -398,7 +398,7 @@ public class GestionComponentes extends JFrame {
 			pnImg.setBorder(new EmptyBorder(15, 15, 15, 15));
 			ImageIcon icon;
 	        try {
-	            BufferedImage img = ImageIO.read(getClass().getResource(producto.getFoto()));
+	            BufferedImage img = ImageIO.read(new File("images",producto.getFoto()));
 	            Image scaledImage = img.getScaledInstance(180, 180, Image.SCALE_SMOOTH);
 	            icon = new ImageIcon(scaledImage);
 	        } catch (IOException e) {
@@ -623,7 +623,6 @@ public class GestionComponentes extends JFrame {
 		ArrayList<Integer> cantidades = new ArrayList<>();
 		for (Producto producto : carro) {
 			cantidades.add(producto.getEnCarro());
-			System.out.println(producto.getEnCarro());
 		}
 		int[] array = new int[cantidades.size()];
 		for (int i = 0; i < cantidades.size(); i++) {

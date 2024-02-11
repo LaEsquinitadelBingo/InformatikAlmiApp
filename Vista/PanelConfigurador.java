@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -65,6 +66,10 @@ public class PanelConfigurador extends JPanel {
 	private JLabel lblPrecioDD;
 	private JLabel lblDD;
 	private JComboBox cbDD;
+	private JLabel lblImgRAM;
+	private JLabel lblPrecioRAM;
+	private JLabel lblRAM;
+	private JComboBox cbRAM;
 	private EventosPanelConfiguracion eventos;
 	private ArrayList<Integer> orden;
 	private int estado = 0;
@@ -84,6 +89,7 @@ public class PanelConfigurador extends JPanel {
 		orden.add(13);
 		orden.add(7);
 		orden.add(14);
+		orden.add(6);
 		
 		setBounds(100, 100, 912, 587);
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -490,6 +496,57 @@ public class PanelConfigurador extends JPanel {
 		cbDD.setEnabled(false);
 		cbDD.setModel(new DefaultComboBoxModel(new String[] {"------------------------------------------------------------------------------------------"}));
 		pnlCBBDD.add(cbDD);
+		
+		
+		
+		JPanel pnlRAM = new JPanel();
+		pnlRAM.setMaximumSize(new Dimension(32767, 100));
+		pnlGeneral.add(pnlRAM);
+		pnlRAM.setLayout(new BorderLayout(0, 0));
+		
+		JPanel pnlImagenRAM = new JPanel();
+		pnlImagenRAM.setBorder(new EmptyBorder(5, 5, 5, 5));
+		pnlRAM.add(pnlImagenRAM, BorderLayout.WEST);
+		
+		lblImgRAM = new JLabel("");
+		lblImgRAM.setIcon(new ImageIcon("images/ram.png"));
+		originales.add("images/RAM.png");
+		pnlImagenRAM.add(lblImgRAM);
+		
+		JPanel pnlPrecioRAM = new JPanel();
+		pnlPrecioRAM.setBorder(new EmptyBorder(25, 0, 5, 5));
+		pnlRAM.add(pnlPrecioRAM, BorderLayout.EAST);
+		
+		lblPrecioRAM = new JLabel(".........");
+		lblPrecioRAM.setFont(new Font("Arial Black", Font.BOLD, 24));
+		pnlPrecioRAM.add(lblPrecioRAM);
+		labels.add(lblPrecioRAM);
+		
+		JPanel pnlDatosRAM = new JPanel();
+		pnlRAM.add(pnlDatosRAM, BorderLayout.CENTER);
+		pnlDatosRAM.setLayout(new BoxLayout(pnlDatosRAM, BoxLayout.Y_AXIS));
+		
+		JPanel pnlLAbelRAM = new JPanel();
+		pnlLAbelRAM.setBorder(new EmptyBorder(5, 15, 5, 5));
+		pnlLAbelRAM.setAlignmentY(Component.TOP_ALIGNMENT);
+		pnlDatosRAM.add(pnlLAbelRAM);
+		pnlLAbelRAM.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		lblRAM = new JLabel("MEMORIA RAM");
+		lblRAM.setFont(new Font("Arial Black", Font.BOLD, 16));
+		lblRAM.setHorizontalAlignment(SwingConstants.LEFT);
+		pnlLAbelRAM.add(lblRAM);
+		
+		JPanel pnlCBBRAM = new JPanel();
+		pnlCBBRAM.setBorder(new EmptyBorder(10, 15, 10, 5));
+		pnlDatosRAM.add(pnlCBBRAM);
+		pnlCBBRAM.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		cbRAM = new JComboBox();
+		cbRAM.setEnabled(false);
+		cbRAM.setModel(new DefaultComboBoxModel(new String[] {"------------------------------------------------------------------------------------------"}));
+		pnlCBBRAM.add(cbRAM);
+		
 		combos = new ArrayList<JComboBox>();
 		combos.add(cbProc);
 		combos.add(cbPlaca);
@@ -498,8 +555,9 @@ public class PanelConfigurador extends JPanel {
 		combos.add(cbVenti);
 		combos.add(cbGrafica);
 		combos.add(cbDD);
+		combos.add(cbRAM);
 		productos = new ArrayList<>();
-		for(int i = 0;i<7;i++) {
+		for(int i = 0;i<8;i++) {
 			ArrayList<Producto> aux = new ArrayList<Producto>();
 			productos.add(aux);
 		}
@@ -511,6 +569,10 @@ public class PanelConfigurador extends JPanel {
 		imagenes.add(lblImgVenti);
 		imagenes.add(lblImgGrafica);
 		imagenes.add(lblImgDD);
+		imagenes.add(lblImgRAM);
+		
+		btnCarrito.setEnabled(false);
+		btnCarrito.setBackground(Color.YELLOW);
 		
 		config = new ArrayList<>();
 		estado = nuevoPaso(estado);
@@ -539,7 +601,10 @@ public class PanelConfigurador extends JPanel {
 	}
 	
 	public int nuevoPaso(int paso) {
-	    
+	    	if (paso == 8) {
+	    		btnCarrito.setEnabled(true);
+	    		return paso;
+	    	}
 			try {
 				ResultSet rs = gestion.getLogin().getBBDD().getProductos(orden.get(paso));
 				

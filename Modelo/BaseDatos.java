@@ -59,6 +59,7 @@ public class BaseDatos {
         case 1:
         	break;
         case 2:
+        	query = "SELECT producto.id_producto, nombre, descripcion, precio, stock, imagen FROM producto INNER JOIN portatil ON producto.id_producto = portatil.id_producto";
         	break;
         case 3:
         	query = "SELECT producto.id_producto, nombre, descripcion, precio, stock, imagen FROM producto INNER JOIN pantalla ON producto.id_producto = pantalla.id_producto";
@@ -126,6 +127,7 @@ public class BaseDatos {
         case 1:
         	break;
         case 2:
+        	query = "SELECT producto.id_producto, nombre, descripcion, precio, stock, imagen FROM producto INNER JOIN portatil ON producto.id_producto = portatil.id_producto";
         	break;
         case 3:
         	query = "SELECT producto.id_producto, nombre, descripcion, precio, stock, imagen FROM producto INNER JOIN pantalla ON producto.id_producto = pantalla.id_producto";
@@ -189,6 +191,7 @@ public class BaseDatos {
 		case 1:
 			break;
 		case 2:
+			query = "SELECT nombre, descripcion, precio, stock, imagen,ram, grafica, procesador FROM producto INNER JOIN portatil ON producto.id_producto = portatil.id_producto WHERE producto.id_producto = ?";
 			break;
 		case 3:
 			query = "SELECT nombre, descripcion, precio, stock, imagen,dimension, puertos_video, tasa_refresco FROM producto INNER JOIN pantalla ON producto.id_producto = pantalla.id_producto WHERE producto.id_producto = ?";
