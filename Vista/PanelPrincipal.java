@@ -60,7 +60,9 @@ public class PanelPrincipal extends JPanel{
 	public PanelPrincipal(GestionComponentes g) {
 		gestion = g;
 
-		rellenarArticulos(0);
+
+		
+        rellenarArticulos(0);
 
         
 		this.setLayout(new BorderLayout());
@@ -183,14 +185,14 @@ public class PanelPrincipal extends JPanel{
 				Producto p = new Producto(rs.getInt("id_producto"),rs.getString("nombre"), rs.getString("descripcion"),rs.getString("imagen"), rs.getDouble("precio"), rs.getInt("stock"), tipo);
 				articulos.add(p);
 				cont++;
-			}
+			}	
 		} catch (SQLException e) {
 			System.out.println("Error en PanelPrincipal");
 		} catch (NullPointerException n) {
 			JOptionPane.showMessageDialog(this, "No se ha encontrado ningun articulo con ese nombre","Error",  1);
 		}
     }
-
+	
 	public void rellenarTarjetas() {
 		if (tipo == 0) txtBuscar.setEnabled(false);
 		else txtBuscar.setEnabled(true);
@@ -208,6 +210,9 @@ public class PanelPrincipal extends JPanel{
 				tarjetas.get(i).setDesc(articulos.get(i + (paginaActual * tarjetas.size())).getDesc());
 				tarjetas.get(i).setPrecio(String.valueOf(articulos.get(i + (paginaActual * tarjetas.size())).getPrecio()) + " €");
 				int stock = articulos.get(i + (paginaActual * tarjetas.size())).getStock();
+				for (Producto c: gestion.getCarro()) {
+					if (articulos.get(i).getId() == c.getId()) stock = stock - c.getEnCarro() + c.getNoEnStock();
+				}
 				ImageIcon icon;
 				try {
 					BufferedImage img;

@@ -24,6 +24,7 @@ public class EventosPanelProducto {
 					panel.getGestion().modificarCarro(panel.getProducto());
 				}
 				panel.getGestion().actualizarCarro();
+				
 				JOptionPane.showMessageDialog(panel.getGestion(), "Producto añadido al carrito.");
 			}
 		});

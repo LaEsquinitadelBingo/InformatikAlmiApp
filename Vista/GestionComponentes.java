@@ -148,7 +148,9 @@ public class GestionComponentes extends JFrame {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		setMinimumSize(new Dimension(1600, 1000));
+		setMinimumSize(new Dimension(1800, 1000));
+		ImageIcon icono = new ImageIcon(""); 
+        this.setIconImage(icono.getImage());
 
 		
 		login = l;
@@ -636,6 +638,7 @@ public class GestionComponentes extends JFrame {
 		if (producto.getEnCarro() == 0) {
 			carro.add(producto);
 			producto.setEnCarro(1);
+			
 		} else {
 			producto.setEnCarro(producto.getEnCarro()+1);
 		}
@@ -647,6 +650,7 @@ public class GestionComponentes extends JFrame {
 		for (Producto producto : carro) {
 			total += producto.getPrecio()*producto.getEnCarro();
 		}
+		mainPanel.rellenarTarjetas();
 		lblTotal.setText("Precio Total: "+total+" €");
 	}
 

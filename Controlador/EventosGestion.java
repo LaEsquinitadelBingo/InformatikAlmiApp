@@ -318,6 +318,7 @@ public class EventosGestion {
 		        			do {
 		        				Producto p = new Producto(rs.getInt("id_producto"),rs.getString("nombre"), rs.getString("descripcion"),rs.getString("imagen"), rs.getDouble("precio"), rs.getInt("stock"), 0);
 		        				p.setEnCarro(rs.getInt("cantidad"));
+		        				p.setNoEnStock(rs.getInt("cantidad"));
 		        				carro.add(p);
 		        			} while (rs.next());
 		        			gestion.getLblCarro().setText("Pedido nº " + input);
@@ -366,6 +367,7 @@ public class EventosGestion {
                     for (Producto p : gestion.getCarro()) {
 						p.setEnCarro(0);
 					}
+                    gestion.getLblCarro().setText("Nuevo Pedido");
                     gestion.getCarro().clear();
                     //BaseDatos.actualizarStock();
                     gestion.setMiniaturas(true);

@@ -8,6 +8,7 @@ public class Producto {
 	private int stock;
 	private int enCarro;
 	private int tipo;
+	private int noEnStock;
 	
 	public Producto(int id,String nombre,String desc, String foto,double precio,int stock, int tipo) {
 		this.id = id;
@@ -17,6 +18,7 @@ public class Producto {
 		this.foto = "/images/" + foto;
 		this.stock = stock;
 		this.tipo = tipo;
+		noEnStock=0;
 	}
 
 	public int getId() {
@@ -81,5 +83,13 @@ public class Producto {
 
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
+	}
+
+	public int getNoEnStock() {
+		return noEnStock;
+	}
+
+	public void setNoEnStock(int noEnStock) {
+		this.noEnStock = noEnStock;
 	}
 }
