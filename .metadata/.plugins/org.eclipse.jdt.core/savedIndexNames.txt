@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\Users\DAM1\Desktop\Informatik Almi\InformatikAlmi\.metadata\.plugins\org.eclipse.jdt.core
+4285446684.index
+531727863.index
+1865797976.index
