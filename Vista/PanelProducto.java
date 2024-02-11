@@ -147,13 +147,13 @@ public class PanelProducto extends JPanel {
 					break;
 				case 5:
 					campos.add("<html><p style='text-align:left;'>\u2022 " + "Tarjeta Grafica Integrada: " + (datos.getInt("grafica")==0 ? "No" : "Si") + "</p></html>");
-					campos.add("<html><p style='text-align:left;'>\u2022 " + "Tamaño de Placa Base: "+ datos.getString("tamaño") + "</p></html>");
+					campos.add("<html><p style='text-align:left;'>\u2022 " + "Tamaño de Placa Base: "+ datos.getString("tamano") + "</p></html>");
 					campos.add("<html><p style='text-align:left;'>\u2022 " + "" + "</p></html>");
 					
 					break;
 				case 6:
 					campos.add("<html><p style='text-align:left;'>\u2022 " + "Generacion de RAM: " + datos.getString("generacion") + "</p></html>");
-					campos.add("<html><p style='text-align:left;'>\u2022 " + "Tamaño de la RAM: "+ datos.getInt("tamaño") + "</p></html>");
+					campos.add("<html><p style='text-align:left;'>\u2022 " + "Tamaño de la RAM: "+ datos.getInt("tamano") + "</p></html>");
 					campos.add("<html><p style='text-align:left;'>\u2022 " + "Frecuencia de la RAM: " + datos.getInt("frecuencia") +"</p></html>");
 					
 					break;
@@ -199,7 +199,7 @@ public class PanelProducto extends JPanel {
 					campos.add("<html><p style='text-align:left;'>\u2022 " + "Peso:" + datos.getInt("peso") + " gramos</p></html>");
 					break;
 				case 13:
-					campos.add("<html><p style='text-align:left;'>\u2022 " + "Tamaño del Ventilador: " + datos.getInt("tamaño") + "</p></html>");
+					campos.add("<html><p style='text-align:left;'>\u2022 " + "Tamaño del Ventilador: " + datos.getInt("tamano") + "</p></html>");
 					campos.add("<html><p style='text-align:left;'>\u2022 " + ""+ "</p></html>");
 					campos.add("<html><p style='text-align:left;'>\u2022 " + "" + "</p></html>");
 					break;

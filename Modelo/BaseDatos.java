@@ -12,8 +12,8 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 
 public class BaseDatos {
-    //private static final String URL = "jdbc:oracle:thin:@//52.206.166.129:1521/ORCL";    /Conexion Server
-	private static final String URL = "jdbc:oracle:thin:@//192.168.1.135/ORCLCDB";
+    private static final String URL = "jdbc:oracle:thin:@//52.206.166.129:1521/ORCL";    //Conexion Server
+	//private static final String URL = "jdbc:oracle:thin:@//192.168.1.135/ORCLCDB";
     private static final String USER = "RETO2";
     private static final String PASS = "almi123";
     private Connection cn;
@@ -197,10 +197,10 @@ public class BaseDatos {
 			query = "SELECT nombre, descripcion, precio, stock, imagen,frecuencia, consumo, nucleos FROM producto INNER JOIN cpu ON producto.id_producto = cpu.id_producto WHERE producto.id_producto = ?";
 			break;
 		case 5:
-			query = "SELECT nombre, descripcion, precio, stock, imagen, tamaño, grafica FROM producto INNER JOIN placa_base ON producto.id_producto = placa_base.id_producto WHERE producto.id_producto = ?";
+			query = "SELECT nombre, descripcion, precio, stock, imagen, tamano, grafica FROM producto INNER JOIN placa_base ON producto.id_producto = placa_base.id_producto WHERE producto.id_producto = ?";
 			break;
 		case 6:
-			query = "SELECT nombre, descripcion, precio, stock, imagen, frecuencia, generacion, tamaño FROM producto INNER JOIN ram ON producto.id_producto = ram.id_producto WHERE producto.id_producto = ?";
+			query = "SELECT nombre, descripcion, precio, stock, imagen, frecuencia, generacion, tamano FROM producto INNER JOIN ram ON producto.id_producto = ram.id_producto WHERE producto.id_producto = ?";
 			break;
 		case 7:
 			query = "SELECT nombre, descripcion, precio, stock, imagen,capacidad, consumo, puertos_video FROM producto INNER JOIN tarjeta_grafica ON producto.id_producto = tarjeta_grafica.id_producto WHERE producto.id_producto = ?";
@@ -221,7 +221,7 @@ public class BaseDatos {
 			query = "SELECT nombre, descripcion, precio, stock, imagen, dimension FROM producto INNER JOIN caja ON producto.id_producto = caja.id_producto WHERE producto.id_producto = ?";
 			break;
 		case 13:
-			query = "SELECT nombre, descripcion, precio, stock, imagen, tamaño FROM producto INNER JOIN ventilador ON producto.id_producto = ventilador.id_producto WHERE producto.id_producto = ?";
+			query = "SELECT nombre, descripcion, precio, stock, imagen, tamano FROM producto INNER JOIN ventilador ON producto.id_producto = ventilador.id_producto WHERE producto.id_producto = ?";
 			break;
 		case 14:
 			query = "SELECT nombre, descripcion, precio, stock, imagen, almacenamiento, velocidad, peso FROM producto INNER JOIN disco_duro ON producto.id_producto = disco_duro.id_producto WHERE producto.id_producto = ?";
@@ -309,7 +309,6 @@ public class BaseDatos {
 	    } finally {
 	        try {
 	            if (pstmt != null) pstmt.close();
-	            if (cn != null) cn.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

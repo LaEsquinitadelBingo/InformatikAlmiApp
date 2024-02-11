@@ -570,7 +570,6 @@ public class GestionComponentes extends JFrame {
 				}
 			}
 		}
-		btnFacturar.setEnabled(cambiado);
 		btnGestionar.setEnabled(cambiado);
 		btnTramitar.setEnabled(cambiado);
 		
@@ -713,7 +712,8 @@ public class GestionComponentes extends JFrame {
 			JLabel lblTotal = new JLabel(producto.getPrecio()*producto.getEnCarro()+" €");
 			panel.add(lblTotal);
 		}
-		btnFacturar.setEnabled(cambiado);
+		btnFacturar.setEnabled(!cambiado);
+
 		btnTramitar.setEnabled(cambiado);
 		btnGuardar.setEnabled(cambiado);
 		btnGestionar.setEnabled(cambiado);

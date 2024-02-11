@@ -155,6 +155,7 @@ public class EventosGestion {
 					}
                     gestion.getCarro().clear();
                     //BaseDatos.actualizarStock();
+                    gestion.setNumPedido(0);
                     gestion.actualizarCarro();
                     gestion.setCambiado(false);
                     gestion.getContentPane().remove(btnVolver.getParent().getParent());
@@ -534,7 +535,7 @@ public class EventosGestion {
 
 					
 					String os = System.getProperty("os.name").toLowerCase();
-					System.out.println(gestion.getUsuarioDni() + " " +gestion.getNumPedido() );
+
 					gestion.getLogin().getBBDD().insertFactura(gestion.getUsuarioDni(), gestion.getNumPedido());
 					
 					if (os.contains("win")) {
@@ -556,6 +557,17 @@ public class EventosGestion {
 							e1.printStackTrace();
 						}
 			        }
+			        for (Producto p : gestion.getCarro()) {
+						p.setEnCarro(0);
+					}
+                    gestion.getLblCarro().setText("Nuevo Pedido");
+                    gestion.getCarro().clear();
+                    //BaseDatos.actualizarStock();
+                    gestion.setMiniaturas(true);
+                    gestion.setCambiado(false);
+                    gestion.actualizarCarro();
+                    gestion.revalidate();   
+                    gestion.repaint();
 				} catch (IOException e1) {
 					
 					//e1.printStackTrace();
