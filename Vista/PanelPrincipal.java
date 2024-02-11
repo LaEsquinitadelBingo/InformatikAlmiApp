@@ -211,7 +211,9 @@ public class PanelPrincipal extends JPanel{
 				tarjetas.get(i).setPrecio(String.valueOf(articulos.get(i + (paginaActual * tarjetas.size())).getPrecio()) + " €");
 				int stock = articulos.get(i + (paginaActual * tarjetas.size())).getStock();
 				for (Producto c: gestion.getCarro()) {
-					if (articulos.get(i).getId() == c.getId()) stock = stock - c.getEnCarro() + c.getNoEnStock();
+					if (articulos.get(i).getId() == c.getId()) {
+						stock = stock - c.getEnCarro() + c.getNoEnStock();
+					}
 				}
 				ImageIcon icon;
 				try {

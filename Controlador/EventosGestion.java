@@ -110,8 +110,16 @@ public class EventosGestion {
 				} else {
 					gestion.setGuardado(true);
 					
-					gestion.getLogin().getBBDD().insertarPedido(1, gestion.getArrayProductos(), gestion.getArrayCantidades());
-					
+					int aux = gestion.getLogin().getBBDD().insertarPedido(1, gestion.getArrayProductos(), gestion.getArrayCantidades(),gestion.getNumPedido());
+					if (aux==0) JOptionPane.showMessageDialog(gestion, "No se pudo crear el pedido");
+					else {
+						gestion.setNumPedido(aux);
+						gestion.getLblCarro().setText("Pedido nº " + aux);
+						for(Producto p: gestion.getCarro()) {
+							p.setNoEnStock(p.getEnCarro());
+						}
+					}
+					gestion.getMainPanel().rellenarArticulos(gestion.getMainPanel().getTipo());
 					gestion.actualizarCarro();
 					gestion.getContentPane().remove(btnComprar.getParent().getParent());
 					gestion.getContentPane().add(gestion.getMainPanel());

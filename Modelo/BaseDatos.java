@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 import oracle.jdbc.OracleConnection;
 import oracle.sql.ARRAY;
@@ -260,21 +261,22 @@ public class BaseDatos {
 		return null;
 	}
 	
-	public void insertarPedido(int id_cliente, int[] id_productos, int[] cantidades) {
+	public int insertarPedido(int id_cliente, int[] id_productos, int[] cantidades, int numPedido) {
 		CallableStatement cstmt = null;
 		try {
-		    cstmt = cn.prepareCall("{call crear_pedido(?, ?, ?)}");
+		    cstmt = cn.prepareCall("{ ? = call gestionar_pedido(?, ?, ?, ?) }");
 
 		    OracleConnection oracleConnection = cn.unwrap(OracleConnection.class);
+		    cstmt.registerOutParameter(1, Types.INTEGER);
 
-		    cstmt.setInt(1, id_cliente );
-		    cstmt.setArray(2, oracleConnection.createOracleArray("NUMBERARRAY", id_productos));
-		    cstmt.setArray(3, oracleConnection.createOracleArray("NUMBERARRAY", cantidades));
-
+		    cstmt.setInt(2, id_cliente );
+		    cstmt.setArray(3, oracleConnection.createOracleArray("NUMBERARRAY", id_productos));
+		    cstmt.setArray(4, oracleConnection.createOracleArray("NUMBERARRAY", cantidades));
+		    cstmt.setInt(5, numPedido);
 
 		    cstmt.execute();
 
-		    System.out.println("Finaliso");
+		    return cstmt.getInt(1);
 		} catch (SQLException e) {
 		    e.printStackTrace();
 		} finally {
@@ -286,6 +288,7 @@ public class BaseDatos {
 		        }
 		    }
 		}
+		return 0;
 
 	}
 	
