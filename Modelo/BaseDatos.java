@@ -12,8 +12,8 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 
 public class BaseDatos {
-    private static final String URL = "jdbc:oracle:thin:@//52.206.166.129:1521/ORCL";    //Conexion Server
-	//private static final String URL = "jdbc:oracle:thin:@//192.168.1.135/ORCLCDB";
+    //private static final String URL = "jdbc:oracle:thin:@//52.206.166.129:1521/ORCL";    //Conexion Server
+	private static final String URL = "jdbc:oracle:thin:@//192.168.1.135/ORCLCDB";      //Conexion mi casa
     private static final String USER = "RETO2";
     private static final String PASS = "almi123";
     private Connection cn;
@@ -47,6 +47,47 @@ public class BaseDatos {
 		}
 
 		return resultSet;
+	}
+    
+    public ResultSet getUsuario(String numSocio) {
+    	String query = "select id_cliente, nombre, apellido_1, apellido_2, telefono, email from cliente where dni_nif= ?";
+		PreparedStatement sentencia;
+		try {
+            sentencia = cn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
+            ResultSet.CONCUR_UPDATABLE);
+            sentencia.setString(1, numSocio);
+            ResultSet rs = sentencia.executeQuery();
+            if (rs.first()) {
+                return rs;
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		return null;
+    }
+    
+    public void borrarPedido(int pedido) {
+    	CallableStatement cstmt = null;
+		try {
+		    cstmt = cn.prepareCall("{call eliminar_pedido(?) }");
+
+		    OracleConnection oracleConnection = cn.unwrap(OracleConnection.class);
+		    cstmt.registerOutParameter(1, Types.INTEGER);
+
+		    cstmt.setInt(1, pedido);
+
+	        cstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (cstmt != null) cstmt.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
 	}
     
     public ResultSet buscar(String texto, int tipo) {
@@ -272,7 +313,7 @@ public class BaseDatos {
 		    OracleConnection oracleConnection = cn.unwrap(OracleConnection.class);
 		    cstmt.registerOutParameter(1, Types.INTEGER);
 
-		    cstmt.setInt(2, id_cliente );
+		    cstmt.setInt(2, id_cliente);
 		    cstmt.setArray(3, oracleConnection.createOracleArray("NUMBERARRAY", id_productos));
 		    cstmt.setArray(4, oracleConnection.createOracleArray("NUMBERARRAY", cantidades));
 		    cstmt.setInt(5, numPedido);

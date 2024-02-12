@@ -40,6 +40,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class EventosGestion {
     GestionComponentes gestion;
+    private int id_cliente;
     public EventosGestion(GestionComponentes g) {
         // TODO Auto-generated constructor stub
         gestion = g;
@@ -109,8 +110,9 @@ public class EventosGestion {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					gestion.setGuardado(true);
-					
-					int aux = gestion.getLogin().getBBDD().insertarPedido(1, gestion.getArrayProductos(), gestion.getArrayCantidades(),gestion.getNumPedido());
+					int aux;
+					if (id_cliente == 0) aux = gestion.getLogin().getBBDD().insertarPedido(1, gestion.getArrayProductos(), gestion.getArrayCantidades(),gestion.getNumPedido());
+					else aux = gestion.getLogin().getBBDD().insertarPedido(id_cliente, gestion.getArrayProductos(), gestion.getArrayCantidades(),gestion.getNumPedido());			
 					if (aux==0) JOptionPane.showMessageDialog(gestion, "No se pudo crear el pedido");
 					else {
 						gestion.setNumPedido(aux);
@@ -130,6 +132,9 @@ public class EventosGestion {
 					gestion.getContentPane().repaint();
 					gestion.getMainPanel().revalidate();
 					gestion.getMainPanel().repaint();
+					txt2.setEditable(true);
+					txt3.setEditable(true);
+					txt4.setEditable(true);
 				}
 			}
 		});
@@ -167,6 +172,9 @@ public class EventosGestion {
     				gestion.getContentPane().repaint();
     				gestion.getMainPanel().revalidate();
     				gestion.getMainPanel().repaint();
+    				txt2.setEditable(true);
+					txt3.setEditable(true);
+					txt4.setEditable(true);
                 }
             }
     	});
@@ -184,6 +192,33 @@ public class EventosGestion {
 				gestion.getContentPane().repaint();
 				gestion.getMainPanel().revalidate();
 				gestion.getMainPanel().repaint();
+				txt2.setEditable(true);
+				txt3.setEditable(true);
+				txt4.setEditable(true);
+			}
+		});
+		
+		txt1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				try {
+					ResultSet rs = gestion.getLogin().getBBDD().getUsuario(txt1.getText());
+
+					txt2.setText(rs.getString("nombre") + " " + rs.getString("apellido_1") + " " + rs.getString("apellido_2") + " ");
+					txt2.setEditable(false);
+					txt3.setText(rs.getString("email"));
+					txt3.setEditable(false);
+					txt4.setText(rs.getString("telefono"));
+					txt4.setEditable(false);
+					id_cliente=rs.getInt("id_cliente");
+				} catch (SQLException t) {
+					System.out.println("Error en la gestion de usuario");
+				} catch (NullPointerException n) {
+					JOptionPane.showMessageDialog(gestion, "No se ha encontrado ningun socio con ese dni, Se creara un nuevo socio","Error",  1);
+				}
 			}
 		});
     }
@@ -298,6 +333,34 @@ public class EventosGestion {
                 System.exit(0);
             }
         });
+        
+        gestion.getBtnGuardar().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 int opcion = JOptionPane.showConfirmDialog(gestion, "Desea borrar ese pedido de la base de datos?", "Borrar", JOptionPane.YES_NO_OPTION);
+                 if (opcion == JOptionPane.YES_OPTION) {
+                     
+
+                 } else {
+                     return;
+                 }
+				// TODO Auto-generated method stub
+				gestion.getLogin().getBBDD().borrarPedido(gestion.getNumPedido());
+				for (Producto p : gestion.getCarro()) {
+					p.setEnCarro(0);
+				}
+                gestion.getLblCarro().setText("Nuevo Pedido");
+                gestion.getCarro().clear();
+                //BaseDatos.actualizarStock();
+                gestion.setMiniaturas(true);
+                gestion.setCambiado(false);
+                gestion.actualizarCarro();
+                gestion.revalidate();   
+                gestion.repaint();
+			}
+		});
         
 		gestion.getBtnCargar().addActionListener(new ActionListener() {
 			@Override

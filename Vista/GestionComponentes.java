@@ -183,7 +183,7 @@ public class GestionComponentes extends JFrame {
 		btnCargar.setBorderPainted(false);
 		btnCargar.setFocusPainted(false);
 		menuBar.add(btnCargar);
-		btnGuardar = new JButton("Guardar", new ImageIcon("images/guardar.png"));
+		btnGuardar = new JButton("Borrar", new ImageIcon("images/borrar.png"));
 		btnGuardar.setBorderPainted(false);
 		btnGuardar.setFocusPainted(false);
 		menuBar.add(btnGuardar);
@@ -473,19 +473,18 @@ public class GestionComponentes extends JFrame {
 		pnlDatosPedido.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.WEST;
-		c.insets = new Insets(10, 10, 10, 10);
-		
-		lblNombre = new JLabel("Cliente:");
+		c.insets = new Insets(10, 10, 10, 10);	
+		lblNumSocio = new JLabel("Nº Socio:");
 		c.gridx = 0; 
 		c.gridy = 0; 
 		c.gridwidth = 1; 
-		pnlDatosPedido.add(lblNombre,c);
-		txtCliente = new JTextField();
+		pnlDatosPedido.add(lblNumSocio,c);
+		txtNumSocio = new JTextField();
 		c.gridx = 1; 
 		c.gridy = 0; 
-		c.gridwidth = 3; 
-		txtCliente.setPreferredSize(new Dimension(320, 30));
-		pnlDatosPedido.add(txtCliente,c);
+		c.gridwidth = 3;
+		pnlDatosPedido.add(txtNumSocio,c);
+		txtNumSocio.setPreferredSize(new Dimension(320, 30));	
 		btnGuardarPedido = new JButton("Confirmar Pedido");
 		btnGuardarPedido.setBackground(Color.green);
 		c.gridx = 7; 
@@ -493,17 +492,17 @@ public class GestionComponentes extends JFrame {
 		c.gridwidth = 1; 
 		btnGuardarPedido.setPreferredSize(new Dimension(140, 30));
 		pnlDatosPedido.add(btnGuardarPedido,c);
-		lblNumSocio = new JLabel("Nº Socio:");
+		lblNombre = new JLabel("Cliente:");
 		c.gridx = 0; 
 		c.gridy = 1; 
 		c.gridwidth = 1; 
-		pnlDatosPedido.add(lblNumSocio,c);
-		txtNumSocio = new JTextField();
+		pnlDatosPedido.add(lblNombre,c);
+		txtCliente = new JTextField();
 		c.gridx = 1; 
 		c.gridy = 1; 
 		c.gridwidth = 3;
-		pnlDatosPedido.add(txtNumSocio,c);
-		txtNumSocio.setPreferredSize(new Dimension(320, 30));
+		txtCliente.setPreferredSize(new Dimension(320, 30));
+		pnlDatosPedido.add(txtCliente,c);
 		pnlDatosPedido.add(new JLabel(""));
 		btnCancelarPedido = new JButton("Cancelar Pedido");
 		btnCancelarPedido.setBackground(Color.RED);
@@ -550,7 +549,7 @@ public class GestionComponentes extends JFrame {
 		scrPedido.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrPedido.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		//pnlPedidoCuerpo.add(scrPedido, BorderLayout.CENTER);
-		eventos.crearEventosCompra(btnGuardarPedido, btnCancelarPedido, btnAtrasPedido, txtNumSocio, txtMail, txtCliente, txtCantidad);
+		eventos.crearEventosCompra(btnGuardarPedido, btnCancelarPedido, btnAtrasPedido, txtNumSocio, txtCliente, txtMail, txtTelefono);
 		contentPane.add(pnlPedidoCuerpo, BorderLayout.CENTER);
         contentPane.revalidate();
         contentPane.repaint();
@@ -578,6 +577,8 @@ public class GestionComponentes extends JFrame {
 	public void cambiarBotones(boolean aux) {
 		btnMinCarro.setEnabled(aux);
         btnMinLista.setEnabled(aux);
+        if (numPedido!=0) btnGuardar.setEnabled(true);
+        else btnGuardar.setEnabled(false);
         for (JButton boton: botonesMenu) {
         	boton.setEnabled(aux);
         }
