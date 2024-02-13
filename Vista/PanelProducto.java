@@ -13,6 +13,10 @@ public class PanelProducto extends JPanel {
 	private Producto producto;
 	JComboBox<Integer> cbCantidad;
 	
+	
+	// Por ultimo el panel producto que es el panel que aparece cuando pinchamos en la imagen de un producto
+	// Este panel simeplemtne recoge los datos completos de un producto y los formatea para que salgan en pantalla dependiendo de que tipo de articulo sea.
+	// Finalmente crea un par de botones para añadir el producto al carro.
     public PanelProducto(Producto producto, GestionComponentes g) throws SQLException {
     	gestion = g;
     	this.producto = producto;
@@ -123,6 +127,8 @@ public class PanelProducto extends JPanel {
         EventosPanelProducto eventos = new EventosPanelProducto(this);
     }
     
+    
+    // En esta funcion simplemente recibe el tipo de componente y el ResultSet de la consulta y crea Strings con los formatos de cada tipo de componente
     public ArrayList<String> generarCampos(ResultSet datos, int tipo) {
     	ArrayList<String> campos = new ArrayList<>();
     	try {

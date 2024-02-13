@@ -47,7 +47,9 @@ public class EventosGestion {
         registrarEventos();
     }
     
+    // Esta funcion crea los eventos de los botones de cada articulo en la ventana de gestionar pedido.
     public void crearEventosPedido(JButton b1, JButton b2, JButton b3, JTextField txt, Producto producto) {
+    	// Este es el boton de eliminar el articulo, simplemente borra es producto del carro, y elimina su propio panel de la lista
     	b1.addActionListener(new ActionListener() {
     		            @Override
     		 public void actionPerformed(ActionEvent e) {
@@ -63,6 +65,8 @@ public class EventosGestion {
    
     		            }
     	});
+    	
+    	//Boton para restarle 1 al producto en el carro, si llega a 0 se removera y quitara el panel
     	b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,6 +85,8 @@ public class EventosGestion {
                 gestion.repaint();
 		            }
 		});
+    	
+    	// Boton para ánadir uno a ese producto del carro.
     	b3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,7 +106,9 @@ public class EventosGestion {
 		});
     }
     
+    // Este procedimiento crea los eventos de los botones de gestionar pedido.
     public void crearEventosCompra(JButton btnComprar, JButton btnNuevo, JButton btnVolver, JTextField txt1,JTextField txt2, JTextField txt3, JTextField txt4) {
+    	// Boton comprar que creara el pedido en la base de datos dependiendo de si el cliente es socio o no. y despues volvera al panel principal.
 		btnComprar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -139,6 +147,7 @@ public class EventosGestion {
 			}
 		});
     	
+		// Boton nuevo, simplemente borrara todos los productos del carro y volvera al panel principal
     	btnNuevo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -179,6 +188,7 @@ public class EventosGestion {
             }
     	});
     	
+    	// Boton volver que vuelve al panel principal sin tocar los productos del carro.
 		btnVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -198,6 +208,7 @@ public class EventosGestion {
 			}
 		});
 		
+		// Por ultimo el txtField del numSocio que cuando pulsemos enter buscara en la base de datos si ese socio existe y en caso de existir, rellenara el resto de campos.
 		txt1.addActionListener(new ActionListener() {
 			
 			@Override
@@ -225,6 +236,9 @@ public class EventosGestion {
 
 
     public void registrarEventos() {
+    	
+    	// Boton para minimizar el carro, que lo que hace es cambiar el numero de columnas del layout del panel principal añadiendole 1 para que quepan mas tarjetas
+    	// Y remueve el panel del carro y añade el minimizado
         gestion.getBtnMinCarro().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -244,6 +258,8 @@ public class EventosGestion {
             }
         });
 
+        // Boton para minimizar el carro, que lo que hace es cambiar el numero de columnas del layout del panel principal quitar 1 para que quepan menos tarjetas
+        // Y remueve el panel del carro minimizado y añade el grande
         gestion.getBtnCarroMinMin().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -264,7 +280,8 @@ public class EventosGestion {
                 gestion.getContentPane().repaint();
             }
         });
-
+        
+        // Exactamente igual que los dos anteriores pero con el panel de la izquierda
         gestion.getBtnMinLista().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -305,7 +322,7 @@ public class EventosGestion {
             }
         });
 
-
+        // Menu que cierra el frame principal y nos devuelve al panel del login para poder loguear con otra cuenta
         gestion.getLoginItem().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -325,15 +342,19 @@ public class EventosGestion {
                 gestion.dispose();
             }
         });
-
+        
+        // Cierra el programa
         gestion.getExitItem().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
+            	gestion.getLogin().getBBDD().cerrarConexion();
                 System.exit(0);
+                
             }
         });
         
+        // Aunque el boton se llame guardar, una decision de ultima hora lo ha convvertido en borrar, Simplemente borrara el pedido de la base de datos.
         gestion.getBtnGuardar().addActionListener(new ActionListener() {
 			
 			@Override
@@ -362,6 +383,7 @@ public class EventosGestion {
 			}
 		});
         
+        // Boton cargar que te pedira un numero de pedido y si existe en la base de datos, cargara todos los articulos en el carrito
 		gestion.getBtnCargar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -419,7 +441,7 @@ public class EventosGestion {
 			}
 		});
 
-		
+		// Boton nuevo que remueve todos los items del carrito.
         gestion.getBtnNuevo().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -451,6 +473,7 @@ public class EventosGestion {
             }
         });
         
+        // Boton que crea el panel de GestionPedido 
 		gestion.getBtnGestionar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -461,6 +484,7 @@ public class EventosGestion {
 			}
 		});
 		
+		// Boton igual que el anterior, crea el panel de GestionPedido
 		gestion.getBtnTramitar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -471,6 +495,7 @@ public class EventosGestion {
 			}
 		});
 		
+		// Boton que crea el panel de Creacion de Pc
 		gestion.getBtnPc().addActionListener(new ActionListener() {
 			
 			@Override
@@ -485,12 +510,15 @@ public class EventosGestion {
 			}
 		});
 		
+		// Boton que inserta la venta en la base de datos.
 		gestion.getBtnFacturar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PDDocument documento = new PDDocument();
 				PDPage page = new PDPage();
 				documento.addPage(page);
-
+				
+				// Mediante el paquete PDFBox vamos a crear una factura formateada en un pdf
+				// Este paquete funciona dibujando en las cordenadas que queramos lo que queremos dibujar.
 				PDPageContentStream contenido;
 				try {
 					contenido = new PDPageContentStream(documento, page);
@@ -601,6 +629,7 @@ public class EventosGestion {
 
 					gestion.getLogin().getBBDD().insertFactura(gestion.getUsuarioDni(), gestion.getNumPedido());
 					
+					// Por ultimo abrimos el archivo pdf dependiendo del sistema operativo
 					if (os.contains("win")) {
 						Runtime.getRuntime().exec("cmd /c start factura.pdf");
 					} else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
@@ -611,7 +640,8 @@ public class EventosGestion {
 					}
 			        PrinterJob job = PrinterJob.getPrinterJob();
 			        job.setPageable(new PDFPageable(documento));
-
+			        
+			        // Intentamos lanzar la factura por la impresora para simular que la factura estaria saliendo.
 			        if (job.printDialog()) {
 			            try {
 							job.print();
@@ -637,7 +667,8 @@ public class EventosGestion {
 				}
 			}
 		});
-
+		
+		// Estos eventos son los correspondientes a cada uno de los botones de la seccion de tipo de componente, cada uno de ellos, llevara al tipo de componente que toque.
 
         for (int i = 0; i < gestion.getBotonesMenu().size(); i++) {
             gestion.getBotonesMenu().get(i).addActionListener(new ActionListener() {

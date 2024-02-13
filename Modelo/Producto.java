@@ -10,6 +10,9 @@ public class Producto {
 	private int tipo;
 	private int noEnStock;
 	
+	// Esta es la clase producto que tiene todos los datos interesantes que necesitamos para realizar operaciones con los productos.
+	// Como variables interesantes tenemos enCarro que nos indica la cantidad de ese producto actualmente en el carro, el tipo para saber que tipo de producto es,
+	// y noEnStock que nos indica articulos que el stock del pedido ya este reducido en la base de datos porque esa parte del pedido ya esta guardada.
 	public Producto(int id,String nombre,String desc, String foto,double precio,int stock, int tipo) {
 		this.id = id;
 		this.nombre = nombre;

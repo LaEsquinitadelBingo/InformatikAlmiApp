@@ -12,6 +12,8 @@ public class EventosLogin {
 	}
 	
 	public void registrarEventos() {
+		
+		// Este boton nos sirve para entrar con la cuentra de la empresa en caso de que no nos acordemos de nuestra contraseña
 		login.getBtnEmpresa().addActionListener(new ActionListener() {
 			
 			@Override
@@ -25,6 +27,7 @@ public class EventosLogin {
 			}
 		});
 		
+		// Boton que mira en la base de datos si los credenciales son correctos
 		login.getBtnLogin().addActionListener(new ActionListener() {
 			
 			@Override

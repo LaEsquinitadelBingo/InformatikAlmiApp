@@ -13,6 +13,7 @@ public class EventosTarjeta {
     }
 
     public void registrarEventos() {
+    	// Boton para ánadir 1 unidad del producto de la tarjeta al carrito
         tarjeta.getComprar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -22,6 +23,8 @@ public class EventosTarjeta {
                 JOptionPane.showMessageDialog(tarjeta.getPanel().getGestion(), "Producto añadido al carrito.");
             }
         });
+        
+        // Evento que genera la plantilla con los datos del articulo en grande cuando pinchamos la foto.
         tarjeta.getFoto().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 //tarjeta.getPanel().setVisible(false);

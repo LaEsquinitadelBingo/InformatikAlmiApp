@@ -25,6 +25,8 @@ public class Tarjeta  extends JPanel {
     private PanelPrincipal panel;
     private Producto producto;
 
+    // El panel principal de nuestro programa tiene 16 tarjetas, 1 por cada producto que tienen los datos de cada producto y se van rellenando con nueva informacion segun cambiemos de seccion
+    // Por eso decidimos hacer una clase tarjeta que tiene todos los componentes de esa tarjeta, asi como el producto que esta en ella en el momento actual.
     public Tarjeta(PanelPrincipal p){
         panel = p;
 			this.setLayout(null);

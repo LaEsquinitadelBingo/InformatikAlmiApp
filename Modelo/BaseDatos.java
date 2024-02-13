@@ -12,6 +12,8 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 
 public class BaseDatos {
+	//La clase en la que conecto a base de datos y tengo todas las funciones relacionadas con ella
+	//Aqui tengo las 2 ips, la del servidor de aws y la que tengo yo en casa para hacer prouebas.
     //private static final String URL = "jdbc:oracle:thin:@//52.206.166.129:1521/ORCL";    //Conexion Server
 	private static final String URL = "jdbc:oracle:thin:@//192.168.1.135/ORCLCDB";      //Conexion mi casa
     private static final String USER = "RETO2";
@@ -23,6 +25,7 @@ public class BaseDatos {
 
 	}
 	
+	//Funccion para conectar usando el driver jbdc de oracle
     public void conectar() {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -31,7 +34,8 @@ public class BaseDatos {
             e.printStackTrace();
         }
     }
-
+    
+    //Funcion que devuelve la lista de los 2 ultimos productos metidos de cada tipo, ultimos_productos es una vista creada y almacenada en oracle
     public ResultSet getProductos() {
 		String query = "SELECT id_producto, nombre, descripcion, precio, stock, imagen FROM ultimos_productos"; 
 		ResultSet resultSet = null;
@@ -49,6 +53,7 @@ public class BaseDatos {
 		return resultSet;
 	}
     
+    // Funcion que devuelve los datos de un cliente si este es socio(Los socios tienen el dni metido) para darles un 20% de descuento
     public ResultSet getUsuario(String numSocio) {
     	String query = "select id_cliente, nombre, apellido_1, apellido_2, telefono, email from cliente where dni_nif= ?";
 		PreparedStatement sentencia;
@@ -67,6 +72,7 @@ public class BaseDatos {
 		return null;
     }
     
+    // Esta funcion llama a un procedimiento en plsql que se encarga de borrar el numero de pedido insertado, para ello primero borrara todas las relaciones de ese pedido con productos, y luego borrara el pedido.
     public void borrarPedido(int pedido) {
     	CallableStatement cstmt = null;
 		try {
@@ -90,6 +96,7 @@ public class BaseDatos {
 
 	}
     
+    // Funcion usada en la busqueda de la aplicacion, Como parametros tiene el texto de busqueda y el tipo de articulo en el que tiene que buscar.q
     public ResultSet buscar(String texto, int tipo) {
     	String query = "";
     	
@@ -159,6 +166,7 @@ public class BaseDatos {
 		return null;
     }
     
+    // Esta funcion es la mas usada en el programa, nos devuelve  todos los articulos de la base de datos de determinado tipo.
 	public ResultSet getProductos(int tipo) {
         String query = "";
         switch (tipo) {
@@ -223,6 +231,7 @@ public class BaseDatos {
 		return resultSet;
 	}
 	
+	// Esta funcion nos devuelve todos los datos, tanto de la tabla producto como de la tabla de cada componente dependiendo de que tipo de componente pongamos.
 	public ResultSet getDatos(int id,int tipo) {
 		String query = "SELECT nombre, descripcion, precio, stock, imagen,inalambrico,peso FROM producto INNER JOIN raton ON raton.id_producto = producto.id_producto WHERE producto.id_producto = ?";
 		switch (tipo) {
@@ -287,6 +296,7 @@ public class BaseDatos {
 		return null;
 	}
 	
+	// Esta funcion nos devuelve todos los articulos que estan en un pedido para poder cargar el pedido.
 	public ResultSet getPedido(int id_pedido) {
 		String query = "select p.id_producto, p.nombre, p.descripcion, p.precio, p.imagen, p.stock, pp.cantidad from producto_pedido pp inner join producto p on p.id_producto = pp.id_producto where id_pedido_cliente = ?";
 		PreparedStatement sentencia;
@@ -305,6 +315,8 @@ public class BaseDatos {
 		return null;
 	}
 	
+	// Esta funcion llama a una funcion gestionar_pedido que se encarga de comprobar si el pedido esta creado ya o no y realizara o un insert, o updates a los articulos que ya tenia dependiendo de lo que necesite
+	// El procedimiento devuelve la id del pedido ya sea si se hna creado como si ya existia.
 	public int insertarPedido(int id_cliente, int[] id_productos, int[] cantidades, int numPedido) {
 		CallableStatement cstmt = null;
 		try {
@@ -336,6 +348,7 @@ public class BaseDatos {
 
 	}
 	
+	// Un insert muy sencillito, crea una venta a partir de un pedido ya existente.
 	public void insertFactura(String empleado, int pedido) {
 		PreparedStatement pstmt = null;
 
@@ -360,6 +373,7 @@ public class BaseDatos {
 
 	}
 
+	// funcion para loguear, nuestros empleados tendran que usar su dni y contraseña
     public String getEmpleado(String dni, String passPrograma) {
     	String sentSql = "SELECT * FROM empleado WHERE dni = ? AND passPrograma = ?";
     	PreparedStatement sentencia;
@@ -379,6 +393,15 @@ public class BaseDatos {
     		e.printStackTrace();
     	}
     	return "";
+    }
+    
+    public void cerrarConexion() {
+    	try {
+			cn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }
 

@@ -12,6 +12,8 @@ public class EventosPanelProducto {
 	}
 	
 	public void registrarEventos() {
+		
+		// Boton para añadir al carrito dependiendo de la cantidad seleccionada en el comboBox
 		panel.getBtnComprar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -29,6 +31,7 @@ public class EventosPanelProducto {
 			}
 		});
 		
+		// Boton para  volver al panel principal
 		panel.getBtnAtras().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

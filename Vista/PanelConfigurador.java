@@ -76,9 +76,7 @@ public class PanelConfigurador extends JPanel {
 	private ArrayList<JComboBox> combos;
 	private JButton btnVolver;
 
-	/**
-	 * Create the panel.
-	 */
+	// Esta clase es la clase que se encarga de crear el panel con el configurador de pcs y todas las funciones necesarias en el
 	public PanelConfigurador(GestionComponentes g) {
 		gestion = g;
 		orden = new ArrayList<Integer>();
@@ -90,7 +88,15 @@ public class PanelConfigurador extends JPanel {
 		orden.add(7);
 		orden.add(14);
 		orden.add(6);
+		// Para gestionar el orden en el que vamos creando nuestro pc, vamos a tener una serie de arraylists, todos con el mismo numero de items, de manera que en cada paso de la creacion del pc
+		// Mediante esos arrays sabemos lo que tenemos que hacer y en que componente tenemos que hacerlo
 		
+		
+		
+		
+		// El panel es un borderpanel con un titulo con los botones relacionados con l;a configuracion completa, una barra de abajo con el precio y los botones para terminar o salir
+		// Y un panel en medio que es boxLayout y que tiene un JPanel por cada tipo de componente.
+		// Los Componentes de los paneles se van desbloqueando en orden segun vamos eligiendo cosas.
 		setBounds(100, 100, 912, 587);
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -579,6 +585,7 @@ public class PanelConfigurador extends JPanel {
 		eventos = new EventosPanelConfiguracion(this);
 	}
 	
+	// Esta funcion añade el producto elegido a la lista de configuracion completa, y cambia la imagen del panel correspondiente.
 	public void añadir(Producto p) {
 		config.add(p);
 		int i =0;
@@ -600,6 +607,7 @@ public class PanelConfigurador extends JPanel {
 		lblPrecio.setText(suma + " €");
 	}
 	
+	// Esta funcion es la que se encarga de saltar al siguiente paso, desbloqueando los componentes que tenga que desbloquear, y cargando la lista de articulos del tipo de componente que le toque
 	public int nuevoPaso(int paso) {
 	    	if (paso == 8) {
 	    		btnCarrito.setEnabled(true);

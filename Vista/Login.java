@@ -15,12 +15,13 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtPass;
+	private JPasswordField txtPass;
 	private JTextField txtCuenta;
 	private JLabel lblTitulo;
 	private JLabel lblCuenta;
@@ -30,9 +31,7 @@ public class Login extends JFrame {
 	private EventosLogin eventos;
 	private BaseDatos bbdd;
 
-	/**
-	 * Launch the application.
-	 */
+	// Este es el login de nuestro programa
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -46,9 +45,7 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	// Una ventana muy sencilla con 2 textFields y varios botones para loguear en el programa
 	public Login() {
 		bbdd = new BaseDatos();
 		bbdd.conectar();
@@ -83,7 +80,7 @@ public class Login extends JFrame {
 		lblPass.setBounds(125, 207, 81, 19);
 		contentPane.add(lblPass);
 		
-		txtPass = new JTextField();
+		txtPass = new JPasswordField();
 		txtPass.setBounds(216, 206, 160, 20);
 		contentPane.add(txtPass);
 		txtPass.setColumns(10);
@@ -116,7 +113,7 @@ public class Login extends JFrame {
 		return txtPass;
 	}
 
-	public void setTxtPass(JTextField txtPass) {
+	public void setTxtPass(JPasswordField txtPass) {
 		this.txtPass = txtPass;
 	}
 

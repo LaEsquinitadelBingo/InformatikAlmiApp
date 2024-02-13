@@ -56,7 +56,8 @@ public class PanelPrincipal extends JPanel{
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
-
+	
+	// Este es el panel principal, en el que estan todas las tarjetas con los articulos de nuestra base de datos y que va cambiando segun cambiemos de secciones
 	public PanelPrincipal(GestionComponentes g) {
 		gestion = g;
 
@@ -64,7 +65,8 @@ public class PanelPrincipal extends JPanel{
 		
         rellenarArticulos(0);
 
-        
+        // El panel tiene un borderlayout con un titulo, con el nombre de la seccion y un panel de busqueda.
+        // Y un panel al sur que tiene 2 botones para controlar la pagina en la que estamos.
 		this.setLayout(new BorderLayout());
 
         titleBar = new JPanel(new BorderLayout());
@@ -127,34 +129,8 @@ public class PanelPrincipal extends JPanel{
 		eventos = new EventosPanelPrincipal(this);
     }
     
-    public int getPaginaActual() {
-		return paginaActual;
-	}
-
-	public void setPaginaActual(int paginaActual) {
-		this.paginaActual = paginaActual;
-	}
-
-	public JButton getBtnPaginaSiguiente() {
-		return btnPaginaSiguiente;
-	}
-
-	public void setBtnPaginaSiguiente(JButton btnPaginaSiguiente) {
-		this.btnPaginaSiguiente = btnPaginaSiguiente;
-	}
-
-	public JButton getBtnPaginaAnterior() {
-		return btnPaginaAnterior;
-	}
-
-	public void setBtnPaginaAnterior(JButton btnPaginaAnterior) {
-		this.btnPaginaAnterior = btnPaginaAnterior;
-	}
-
-	public void setTxtBuscar(JTextField txtBuscar) {
-		this.txtBuscar = txtBuscar;
-	}
-
+	
+	// Este proceimiento se encarga de rellenar las tarjetas con los datos de los articulso, Dependiento del tipo hara una consulta a la base de datos y rellenara el array de articulos con todos los articulos de este tipo en la Base de DAtos
 	public void rellenarArticulos(int tipo) {
 		this.tipo=tipo;
         articulos = new ArrayList<>();
@@ -174,6 +150,7 @@ public class PanelPrincipal extends JPanel{
 		}
     }
 	
+	// Este procedimiento hace lo mismo que el anterior pero en este caso lo hace con los articulos procedentes de una busqueda, haciendo la consulta de buscar.
 	public void rellenarArticulos(String texto, int tipo) {
         articulos = new ArrayList<>();
         
@@ -193,6 +170,8 @@ public class PanelPrincipal extends JPanel{
 		}
     }
 	
+	// Este procedimiento rellena todos los campos de cada una de las tarjetas con los datos procedentes del array articulos, dependiendo de en que pagina este
+	// Tambien se encarga de controlar los botones de paginas y el txt de busqueda.
 	public void rellenarTarjetas() {
 		if (tipo == 0) txtBuscar.setEnabled(false);
 		else txtBuscar.setEnabled(true);
@@ -222,6 +201,7 @@ public class PanelPrincipal extends JPanel{
 						//img = ImageIO.read(getClass().getResource(articulos.get(i).getFoto()));
 					img = ImageIO.read(new File("images",articulos.get(i + (paginaActual * tarjetas.size())).getFoto()));
 					Image scaledImage = img.getScaledInstance(180, 160, Image.SCALE_SMOOTH);
+					// En el caso de que el stock del articulo sea 0, le damos una tonalidad gris para dar a entender que no se puede añadir
 					if (stock == 0) {
 						BufferedImage grayscale = new BufferedImage(
 								img.getWidth(), img.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
@@ -247,13 +227,42 @@ public class PanelPrincipal extends JPanel{
 		}
 		
 	}
-
+	
+	// Por ultimo un procedimiento que ánade todas las tarjetas al tablePanel principal del panel, la x nos indica el espacio que tenemos en pantalla, dependiendo de si tenemos alguna de las barras laterales minimizadas.
 	public void añadirArticulos(int x) {
 		tablePanel.removeAll();
 		for (int i = 0; i < x*3; i ++) {
 			tablePanel.add(tarjetas.get(i));
 			
 		}
+	}
+	
+    public int getPaginaActual() {
+		return paginaActual;
+	}
+
+	public void setPaginaActual(int paginaActual) {
+		this.paginaActual = paginaActual;
+	}
+
+	public JButton getBtnPaginaSiguiente() {
+		return btnPaginaSiguiente;
+	}
+
+	public void setBtnPaginaSiguiente(JButton btnPaginaSiguiente) {
+		this.btnPaginaSiguiente = btnPaginaSiguiente;
+	}
+
+	public JButton getBtnPaginaAnterior() {
+		return btnPaginaAnterior;
+	}
+
+	public void setBtnPaginaAnterior(JButton btnPaginaAnterior) {
+		this.btnPaginaAnterior = btnPaginaAnterior;
+	}
+
+	public void setTxtBuscar(JTextField txtBuscar) {
+		this.txtBuscar = txtBuscar;
 	}
 
 	public JPanel getPnlBusqueda() {

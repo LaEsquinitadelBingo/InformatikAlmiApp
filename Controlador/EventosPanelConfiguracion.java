@@ -23,6 +23,7 @@ public class EventosPanelConfiguracion {
 	
 	public void registrarEventos() {
 		
+		// Evento para cada uno de los comboBox, Lo que hacen es avanzar el estado y los propios arrays se encargaran de saber a que paso tienen que avanzar
 		for (JComboBox cb: panel.getCombos()) {
 			cb.addActionListener(new ActionListener() {
 				
@@ -37,6 +38,7 @@ public class EventosPanelConfiguracion {
 			});
 		}
 		
+		// Boton reiniciar que vacia todos los paneles, la configuracion del pc y vuelve al paso 1
 		panel.getBtnReiniciar().addActionListener(new ActionListener() {
 			
 			@Override
@@ -58,6 +60,7 @@ public class EventosPanelConfiguracion {
 			}
 		});
 		
+		// Boton guardar que nos permite almacenar nuestra setup en un archivo de texto formateado para que podamos cargarlo en cualquier momento
 		panel.getBtnGuardar().addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +95,7 @@ public class EventosPanelConfiguracion {
 		    }
 		});
 		
+	    // Boton para cargar un archivo de texto para leer una configuracion creada anteriormente
 		panel.getBtnCargar().addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
@@ -121,6 +125,7 @@ public class EventosPanelConfiguracion {
 		    }
 		});
 		
+		// Boton que añade todos los articulos de la configuracion al carrito del pedido actual
 		panel.getBtnCarrito().addActionListener(new ActionListener() {
 			
 			@Override
@@ -153,6 +158,8 @@ public class EventosPanelConfiguracion {
 			}
 		});
 		
+		
+		// Boton para volver al panel principal y salir del creador de Pc
 		panel.getBtnVolver().addActionListener(new ActionListener() {
 			
 			@Override

@@ -138,10 +138,9 @@ public class GestionComponentes extends JFrame {
 	private String usuarioDni = "56789012E";
 
 
-	/**
-	 * Create the frame.
-	 */
+	// Este es la base de nuestro programa, es la ventana principal, En ella tenemos un border layout con una barra de menu en el norte, la barra de las secciones a la izquierda y el carrito a la derecha
 	public GestionComponentes(Login l) {
+		// Para cambiar el look del programa a algo mas interesante hemos cambiado el lookandfeel del programa usando una libreria llamada FLATLAF
 		try {
 			UIManager.setLookAndFeel(new FlatLightLaf());
 
@@ -163,7 +162,9 @@ public class GestionComponentes extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		menuBar = new JMenuBar();
-
+		
+		// Primero creamos el menu bar, Al principio decidimos crearlo entero como menubar y sus componentes, pero rapido nos dimos cuenta de que JMenu, y JmenuItem son componentes bastante limitados con respecto a lo que poedes hacre con ellos
+		// Por ello decimis cambiar la mayoria por botones metidos dentro del menuBar.
 		mnLogin = new JMenu("Cuenta");
 		mnLogin.setIcon(new ImageIcon("images/menu.png"));
 		loginItem = new JMenuItem("Login");
@@ -230,13 +231,14 @@ public class GestionComponentes extends JFrame {
 
 
 		pnlLista.setLayout(new BorderLayout(0, 0));
-		// Crear un ListCellRenderer para cambiar la fuente de los elementos
 
 		pnlLista.setMaximumSize(new Dimension(Integer.MAX_VALUE, pnlLista.getMaximumSize().height));
 
+		
+		// Aqui tenemos la parte del carro. El carro es un layout border con un titulo y una barra de abajo con el precio total y el boton, y el panel de en medio
+		// Esta dentro de un scrollPane para que nos permita añadir objetos infinitos y podamos scrollear hacia abajo
 		pnlCarro = new JPanel();
 		pnlCarro.setLayout(new BorderLayout(0, 0));
-		// Crear la barra de título para pnlCarro
 		tituloCarro = new JPanel(new BorderLayout());
 		tituloCarro.setBorder(new EmptyBorder(4, 5, 4, 0));
 		tituloCarro.setMaximumSize(new Dimension(2147483647, 30));
@@ -288,7 +290,7 @@ public class GestionComponentes extends JFrame {
 		btnTramitar.setBackground(Color.YELLOW);
 		pnlCarroAbajo.add(btnTramitar, BorderLayout.EAST);
 
-		
+		// El panel de la izquierda llamado pnlLista tambien es un border Layout con un titulo y un panel que tiene los botones para navegar entre las secciones.
 		tituloLista = new JPanel((LayoutManager) null);
 		tituloLista.setBorder(new EmptyBorder(4, 0, 4, 5));
 		tituloLista.setPreferredSize(new Dimension(0, 30));
@@ -311,6 +313,7 @@ public class GestionComponentes extends JFrame {
 		pnlLista.add(pnlListado, BorderLayout.CENTER);
 		botonesMenu = new ArrayList<JButton>();
 		
+		// Aqui creamos una lista con todas las secciones que tiene nuestra base de datos
 		items = new ArrayList<>();
 		items.add("Novedades");
 		items.add("Packs Pc");
@@ -327,7 +330,7 @@ public class GestionComponentes extends JFrame {
         items.add("Torres");
         items.add("Ventiladores");
         items.add("Discos Duros");
-		
+		// Y luego creamos un boton por cada una de ellas.
 		for (String item : items) {
 			JButton boton = new JButton(item);
 			boton.setPreferredSize(new Dimension(300, 50));
@@ -343,6 +346,9 @@ public class GestionComponentes extends JFrame {
 		scrPedido.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		contentPane.add(scrPedido, BorderLayout.CENTER);
 		
+		
+		// Para simular la accion de minimizar el panel de la izquierda y el de la derecha lo que hemos hecho es crear dos paneles pequeños con solo el boton de maximizar
+		// Cada vez que se minimiza uno de los paneles, ese panel desaparecera y el panel pequeño que corresponde se mostrara y cuando se pulse maximizar hara lo contrario.
 		pnlCarroMin = new JPanel();
 		
 		btnCarroMinMin = new JButton("<");
@@ -368,6 +374,7 @@ public class GestionComponentes extends JFrame {
 		eventos = new EventosGestion(this);
 	}
 	
+	// Este procedimiento crea un panel con todos los datos del pedido actual y sustituye el panel principal por este
 	public void crearPedido(ArrayList<Producto> productos) {
 		pnlPedido = new JPanel();
 		pnlPedidoCuerpo = new JPanel();
@@ -378,6 +385,7 @@ public class GestionComponentes extends JFrame {
 		
 		pnlPedido.setLayout(new BoxLayout(pnlPedido, BoxLayout.Y_AXIS));
 		
+		// Por cada producto que tengamos en el carrito crea un bloque con los datos de ese producto y algunos botones para modificar la cantidad o borrar el articulo.
 		for (Producto producto : productos) {
 			pnlPedidoProducto = new JPanel();
 			pnlPedidoProducto.setMaximumSize(new Dimension(32767, 250));
@@ -468,6 +476,7 @@ public class GestionComponentes extends JFrame {
 		}
 		estoyGestion();
 		
+		// En el panel de abajo creamos un GridBagLayout para crear lo que seria el formulario con los datos del cliente y los botones para confirmar pedido, volver atras o borrarlo.
 		pnlDatosPedido = new JPanel();
 		pnlDatosPedido.setBorder(new EmptyBorder(20, 150, 20, 150));
 		pnlDatosPedido.setLayout(new GridBagLayout());
@@ -549,6 +558,7 @@ public class GestionComponentes extends JFrame {
 		scrPedido.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrPedido.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		//pnlPedidoCuerpo.add(scrPedido, BorderLayout.CENTER);
+		//Por ultimo cremos los eventos de los botones de este panel.
 		eventos.crearEventosCompra(btnGuardarPedido, btnCancelarPedido, btnAtrasPedido, txtNumSocio, txtCliente, txtMail, txtTelefono);
 		contentPane.add(pnlPedidoCuerpo, BorderLayout.CENTER);
         contentPane.revalidate();
@@ -556,6 +566,7 @@ public class GestionComponentes extends JFrame {
 		
 	}
 	
+	// Procedimiento que se encarga de deshabilitar ciertos botones cuando esto en el proceso de gestionar un pedido.
 	public void estoyGestion () {
 		btnMinLista.setEnabled(!estoyGestion);
 		btnMinCarro.setEnabled(!estoyGestion);
@@ -574,6 +585,7 @@ public class GestionComponentes extends JFrame {
 		
 	}
 	
+	// Procedimiento que controla el estado de la mayoria de botones del programa dependiendo de lo que necesitemos.
 	public void cambiarBotones(boolean aux) {
 		btnMinCarro.setEnabled(aux);
         btnMinLista.setEnabled(aux);
@@ -608,6 +620,8 @@ public class GestionComponentes extends JFrame {
 
 	}
 	
+	
+	// Las siguientes 2 funciones son funciones que crean Arrays que necesitamos para usar el procedimeinto de plsql, ya que plsql no sabe leer ArrayLists, asique los tenemos que convertir en arrays normales.
 	public int[] getArrayProductos() {
 		ArrayList<Integer> ids = new ArrayList<>();
 		for (Producto producto : carro) {
@@ -632,6 +646,8 @@ public class GestionComponentes extends JFrame {
 		return array;
 	}
 	
+	
+	// Procedimiento que se encarga de ánadir un producto al carro en caso de que no este, y en caso de que este simplemente le suma 1.
 	public void modificarCarro(Producto producto) {
 		cambiado = true;
 		if (producto.getEnCarro() == 0) {
@@ -644,6 +660,7 @@ public class GestionComponentes extends JFrame {
 
 	}
 
+	// Procedimiento que va cambian el precio total del pedido cada vez que la llamamos
 	public void calcularTotal() {
 		double total = 0;
 		for (Producto producto : carro) {
@@ -653,6 +670,8 @@ public class GestionComponentes extends JFrame {
 		lblTotal.setText("Precio Total: "+total+" €");
 	}
 
+	// Este procediemitneo llena el panel del carro con todos los productos que hay en el
+	// Para ello por cada producto crea un nuevo panel con sus datos y un comboBox y un Button, y luego le asignamos los eventos a esos dos componentes.
 	public void actualizarCarro() {
 		pnlCarroObjetos.removeAll();
 		for (Producto producto : carro) {

@@ -10,6 +10,7 @@ public class EventosPanelPrincipal {
 	}
 	
 	public void registrarEventos() {
+		// Estos 2 botones se encargar de cambiar la pagina actual y volver a rellenar las tarjetas con las de la pagina que toque
 		panel.getBtnPaginaAnterior().addActionListener(new ActionListener() {
 			
 			@Override
@@ -29,7 +30,8 @@ public class EventosPanelPrincipal {
 				panel.rellenarTarjetas();
 			}
 		});
-
+		
+		// Cuando se pulse enter en el textBox buscar se rellenaran los articulos con los procedentes de la busqueda y se rellenaran las tarjetas.
 		panel.getTxtBuscar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
